@@ -1,0 +1,73 @@
+{
+  "hazard": "RAIN_DURING_BLOOM",
+  "stage_sensitivity": {
+    "dormant": 0,
+    "bloom": 5,
+    "petal_fall": 3,
+    "nut_fill": 1,
+    "hull_split": 0
+  },
+  "rain_thresholds_inches": {
+    "light_disruption": 0.05,
+    "moderate_disruption": 0.10,
+    "heavy_disruption": 0.25
+  },
+  "trigger_conditions": {
+    "min_duration_hours": 2,
+    "monitor_window_hours": 72
+  },
+  "risk_logic": {
+    "severe": [
+      "stage == 'bloom'",
+      "total_rain >= 0.25"
+    ],
+    "high": [
+      "stage_in=['bloom','petal_fall']",
+      "total_rain >= 0.10"
+    ],
+    "medium": [
+      "stage_in=['bloom','petal_fall']",
+      "hours_with_rain >= 2 OR total_rain >= 0.05"
+    ],
+    "escalation_if_wind": [
+      "wind_sustained >= 20",
+      "rain_present"
+    ],
+    "low": [
+      "stage_not_in=['bloom','petal_fall'] OR total_rain < 0.05"
+    ]
+  },
+  "bee_activity_warning": {
+    "active_stage": "bloom",
+    "message": "Rainfall significantly suppresses bee flight and reduces pollination efficiency."
+  },
+  "actions": {
+    "before": [
+      "Coordinate bee hive placement timing if rain is forecast.",
+      "Delay fungicide or spray operations if heavy rain is imminent.",
+      "Ensure proper orchard drainage to prevent standing water."
+    ],
+    "during": [
+      "Avoid orchard traffic to reduce soil compaction.",
+      "Secure bee hives if wind accompanies rainfall.",
+      "Monitor rainfall accumulation and duration."
+    ],
+    "after": [
+      "Assess bloom retention and pollination success.",
+      "Inspect orchard drainage performance.",
+      "Consider follow-up disease monitoring after wet bloom period."
+    ]
+  },
+  "shopping_categories": [
+    "Hive straps and tie-downs",
+    "Drainage tools",
+    "Orchard stakes",
+    "Protective equipment"
+  ],
+  "notes": [
+    "Rain during bloom disrupts pollination by preventing bee flight.",
+    "Wind combined with rain further reduces pollination efficiency.",
+    "Bloom stage is the most economically sensitive window for rain-related yield loss.",
+    "This playbook focuses on pollination disruption (disease risk handled separately)."
+  ]
+}

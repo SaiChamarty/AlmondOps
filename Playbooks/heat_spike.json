@@ -1,0 +1,70 @@
+{
+  "hazard": "HEAT_SPIKE",
+  "stage_sensitivity": {
+    "dormant": 0,
+    "bloom": 1,
+    "petal_fall": 2,
+    "nut_fill": 5,
+    "hull_split": 3
+  },
+  "critical_temperatures_f": {
+    "stress_threshold": 95,
+    "high_damage_threshold": 100,
+    "severe_threshold": 105
+  },
+  "trigger_conditions": {
+    "min_duration_hours": 2,
+    "monitor_window_hours": 72
+  },
+  "risk_logic": {
+    "high": [
+      "stage == 'nut_fill'",
+      "hours_above_100 >= 2"
+    ],
+    "severe": [
+      "stage == 'nut_fill'",
+      "hours_above_105 >= 2"
+    ],
+    "medium": [
+      "stage_in=['nut_fill','hull_split']",
+      "hours_above_95 >= 2"
+    ],
+    "low": [
+      "hours_above_95 < 2"
+    ]
+  },
+  "actions": {
+    "before": [
+      "Pre-irrigate 24 hours before peak heat to bring root zone to field capacity.",
+      "Inspect irrigation system for uniform distribution and pressure.",
+      "Prioritize younger or high-value blocks if water supply is limited."
+    ],
+    "during_irrigation_available": [
+      "Apply short pulse irrigation during peak afternoon heat (11 AM–4 PM).",
+      "Maintain adequate soil moisture to support transpiration cooling.",
+      "Monitor canopy temperature if possible."
+    ],
+    "during_no_irrigation": [
+      "Monitor forecast closely for extended heat duration.",
+      "Avoid pruning, spraying, or stressing trees during peak heat.",
+      "Prioritize protection of younger blocks if any water is available."
+    ],
+    "after": [
+      "Inspect orchards for nut drop or shrivel symptoms.",
+      "Evaluate irrigation schedule to recover from heat stress.",
+      "Document affected blocks for yield impact estimation."
+    ]
+  },
+  "shopping_categories": [
+    "Irrigation repair parts",
+    "Pump fuel",
+    "Pressure gauges",
+    "Shade materials (young trees)"
+  ],
+  "notes": [
+    "95°F represents physiological stress where trees shift from growth to survival mode.",
+    "100°F sustained for 2+ hours can impact kernel development during nut fill.",
+    "105°F sustained can cause direct tissue damage and sunburn.",
+    "Nut Fill stage is the most economically sensitive period for heat damage."
+  ]
+}

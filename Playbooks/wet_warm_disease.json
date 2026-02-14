@@ -1,0 +1,58 @@
+{
+  "hazard": "WET_WARM_DISEASE",
+  "stage_sensitivity": {
+    "dormant": 0,
+    "bloom": 4,
+    "petal_fall": 3,
+    "nut_fill": 1,
+    "hull_split": 1
+  },
+  "trigger_conditions": {
+    "temperature_range_f": [55, 75],
+    "humidity_min_percent": 80,
+    "rainfall_min_inches": 0.05,
+    "high_rainfall_inches": 0.10
+  },
+  "risk_logic": {
+    "high": [
+      "stage_in=['bloom','petal_fall']",
+      "temp_in_range",
+      "humidity_high",
+      "rainfall >= 0.10"
+    ],
+    "medium": [
+      "stage_in=['bloom','petal_fall']",
+      "temp_in_range",
+      "humidity_high",
+      "rainfall >= 0.05"
+    ],
+    "low": [
+      "stage_not_in=['bloom','petal_fall'] OR temp_out_of_range OR humidity_low OR rainfall < 0.05"
+    ]
+  },
+  "actions": {
+    "before": [
+      "Apply protective fungicide prior to rain if within label window.",
+      "Ensure full spray coverage during bloom (sparse foliage helps coverage).",
+      "Avoid irrigation that extends blossom wetness duration."
+    ],
+    "during": [
+      "Avoid overhead irrigation.",
+      "Track rainfall totals and hours of high humidity."
+    ],
+    "after": [
+      "Inspect blossoms for browning or lesions.",
+      "Apply post-infection fungicide if within safe timing window.",
+      "Increase monitoring for 5–7 days after the event."
+    ]
+  },
+  "shopping_categories": [
+    "Fungicide products (category only)",
+    "Sprayer repair kits",
+    "PPE"
+  ],
+  "notes": [
+    "This playbook targets bloom-stage blossom disease risk (e.g., brown rot/blight) and is most relevant during Bloom and Petal Fall.",
+    "For hackathon MVP, risk uses only temperature, humidity, and rainfall from the weather API."
+  ]
+}

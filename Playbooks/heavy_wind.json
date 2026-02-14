@@ -1,0 +1,71 @@
+{
+  "hazard": "HEAVY_WIND",
+  "stage_sensitivity": {
+    "dormant": 1,
+    "bloom": 5,
+    "petal_fall": 4,
+    "nut_fill": 3,
+    "hull_split": 2
+  },
+  "critical_wind_thresholds_mph": {
+    "operational_disruption": 25,
+    "damage_risk": 30,
+    "severe_risk": 40
+  },
+  "trigger_conditions": {
+    "min_duration_hours": 2,
+    "monitor_window_hours": 72
+  },
+  "risk_logic": {
+    "severe": [
+      "gust >= 40",
+      "hours_sustained_above_30 >= 2"
+    ],
+    "high": [
+      "stage_in=['bloom','petal_fall']",
+      "sustained_wind >= 30",
+      "hours_sustained_above_30 >= 2"
+    ],
+    "medium": [
+      "sustained_wind >= 25",
+      "hours_sustained_above_25 >= 2"
+    ],
+    "low": [
+      "sustained_wind < 25 OR hours_sustained_above_25 < 2"
+    ]
+  },
+  "bee_activity_warning": {
+    "active_stage": "bloom",
+    "threshold_mph": 25,
+    "message": "Wind speeds above 25 mph significantly reduce bee flight activity and pollination efficiency."
+  },
+  "actions": {
+    "before": [
+      "Secure bee hives and straps before wind event.",
+      "Inspect young trees and support stakes.",
+      "Delay spraying operations if possible."
+    ],
+    "during": [
+      "Avoid pesticide spraying due to drift risk.",
+      "Monitor hive stability.",
+      "Limit orchard traffic during peak gusts."
+    ],
+    "after": [
+      "Inspect for limb damage or fallen branches.",
+      "Reassess pollination effectiveness if wind occurred during bloom.",
+      "Document affected blocks for yield tracking."
+    ]
+  },
+  "shopping_categories": [
+    "Hive straps and tie-downs",
+    "Tree stakes",
+    "Replacement irrigation lines",
+    "Safety equipment"
+  ],
+  "notes": [
+    "Wind speeds above 25 mph reduce bee activity during bloom.",
+    "Sustained winds above 30 mph can cause blossom drop and structural stress.",
+    "Gusts above 40 mph present elevated risk of limb damage and hive displacement.",
+    "Bloom stage is the most economically sensitive period for wind-related pollination disruption."
+  ]
+}

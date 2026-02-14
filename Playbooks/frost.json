@@ -1,0 +1,71 @@
+{
+  "hazard": "FROST",
+  "stage_sensitivity": {
+    "dormant": 0,
+    "bloom": 4,
+    "petal_fall": 5,
+    "nut_fill": 1,
+    "hull_split": 0
+  },
+  "critical_temperatures_f": {
+    "dormant": 20,
+    "bloom": 28,
+    "petal_fall": 28,
+    "nut_fill": 30,
+    "hull_split": null
+  },
+  "trigger_conditions": {
+    "watch_temp_f": 36,
+    "risk_temp_f": 34,
+    "damage_temp_f": 28,
+    "min_duration_hours_for_high_risk": 2
+  },
+  "risk_logic": {
+    "high": [
+      "stage_in=['bloom','petal_fall']",
+      "min_temp <= 28",
+      "hours_below_28 >= 2"
+    ],
+    "medium": [
+      "stage_in=['bloom','petal_fall']",
+      "min_temp <= 30",
+      "hours_below_30 >= 2"
+    ],
+    "low": [
+      "min_temp > 30 OR hours_below_30 < 2"
+    ]
+  },
+  "actions": {
+    "before": [
+      "Confirm irrigation system pressure and flow before sunset.",
+      "Stage thermometers in lowest (cold-air pooling) blocks.",
+      "Prepare to activate frost protection before temperatures reach 32°F."
+    ],
+    "during_irrigation_available": [
+      "Start sprinklers before temperatures drop below 32°F.",
+      "Maintain continuous water application throughout the freeze period.",
+      "Monitor orchard temperature every 20–30 minutes."
+    ],
+    "during_no_irrigation": [
+      "Closely monitor orchard temperature during the risk window.",
+      "Prioritize protection for younger or most vulnerable blocks if limited tools available."
+    ],
+    "after": [
+      "Do not shut off irrigation until temperatures safely rise above freezing and ice begins melting.",
+      "Inspect blossoms or small nutlets for browning/black centers (ovary damage).",
+      "Document affected blocks for yield projection adjustments."
+    ]
+  },
+  "shopping_categories": [
+    "Orchard thermometers / temperature probes",
+    "Irrigation repair parts",
+    "Fuel for pumps",
+    "Frost cloth (young trees)"
+  ],
+  "notes": [
+    "Almond trees are most sensitive to freezing temperatures during bloom and post-petal fall.",
+    "Temperatures of 27–28°F for 30 minutes or more can result in significant crop loss.",
+    "Duration of freezing temperatures is as critical as minimum temperature.",
+    "Sprinkler irrigation protects blossoms by releasing heat during water freezing."
+  ]
+}

@@ -77,6 +77,13 @@ export const dataReportSchema = z.object({
       latitude: z.number().nullable(),
       longitude: z.number().nullable(),
       timezone: z.string().nullable(),
+      durationHours: z.number().nullable(),
+      realtime: z.object({
+        timestamp: z.string().nullable(),
+        windMph: z.number().nullable(),
+        humidityPct: z.number().nullable(),
+        precipitationMm: z.number().nullable(),
+      }),
       hourlyAvailable: z.object({
         temperature2m: z.boolean(),
         relativeHumidity2m: z.boolean(),

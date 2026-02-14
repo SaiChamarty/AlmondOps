@@ -59,6 +59,13 @@ async function fetchWeatherData(lat: number, lon: number): Promise<{
   fetchedAt: string | null;
   httpStatus: number | null;
   timezone: string | null;
+  durationHours: number | null;
+  realtime: {
+    timestamp: string | null;
+    windMph: number | null;
+    humidityPct: number | null;
+    precipitationMm: number | null;
+  };
   hourlyAvailable: {
     temperature2m: boolean;
     relativeHumidity2m: boolean;
@@ -78,7 +85,7 @@ async function fetchWeatherData(lat: number, lon: number): Promise<{
   const now = new Date();
 
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&forecast_days=3&timezone=America%2FLos_Angeles`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&current=relative_humidity_2m,precipitation,wind_speed_10m&forecast_days=3&timezone=America%2FLos_Angeles&wind_speed_unit=mph`;
     const response = await fetch(url, { cache: "no-store" });
 
     if (!response.ok) {
@@ -87,6 +94,13 @@ async function fetchWeatherData(lat: number, lon: number): Promise<{
         fetchedAt: now.toISOString(),
         httpStatus: response.status,
         timezone: null,
+        durationHours: null,
+        realtime: {
+          timestamp: null,
+          windMph: null,
+          humidityPct: null,
+          precipitationMm: null,
+        },
         hourlyAvailable: {
           temperature2m: false,
           relativeHumidity2m: false,
@@ -101,10 +115,12 @@ async function fetchWeatherData(lat: number, lon: number): Promise<{
 
     const data = await response.json();
     const hourly = data?.hourly;
+    const current = data?.current;
     const temperatures = Array.isArray(hourly?.temperature_2m) ? hourly.temperature_2m : [];
     const humidity = Array.isArray(hourly?.relative_humidity_2m) ? hourly.relative_humidity_2m : [];
     const precipitation = Array.isArray(hourly?.precipitation) ? hourly.precipitation : [];
     const wind = Array.isArray(hourly?.wind_speed_10m) ? hourly.wind_speed_10m : [];
+    const hourlyTime = Array.isArray(hourly?.time) ? hourly.time : [];
 
     const hasTemps = temperatures.length > 0;
     const hasHumidity = humidity.length > 0;
@@ -117,6 +133,18 @@ async function fetchWeatherData(lat: number, lon: number): Promise<{
       fetchedAt: now.toISOString(),
       httpStatus: response.status,
       timezone: typeof data?.timezone === "string" ? data.timezone : null,
+      durationHours: hourlyTime.length || null,
+      realtime: {
+        timestamp: typeof current?.time === "string" ? current.time : null,
+        windMph:
+          typeof current?.wind_speed_10m === "number" ? current.wind_speed_10m : null,
+        humidityPct:
+          typeof current?.relative_humidity_2m === "number"
+            ? current.relative_humidity_2m
+            : null,
+        precipitationMm:
+          typeof current?.precipitation === "number" ? current.precipitation : null,
+      },
       hourlyAvailable: {
         temperature2m: hasTemps,
         relativeHumidity2m: hasHumidity,
@@ -143,6 +171,13 @@ async function fetchWeatherData(lat: number, lon: number): Promise<{
       fetchedAt: now.toISOString(),
       httpStatus: null,
       timezone: null,
+      durationHours: null,
+      realtime: {
+        timestamp: null,
+        windMph: null,
+        humidityPct: null,
+        precipitationMm: null,
+      },
       hourlyAvailable: {
         temperature2m: false,
         relativeHumidity2m: false,
@@ -180,6 +215,13 @@ export async function POST(request: Request) {
             fetchedAt: null,
             httpStatus: null,
             timezone: null,
+            durationHours: null,
+            realtime: {
+              timestamp: null,
+              windMph: null,
+              humidityPct: null,
+              precipitationMm: null,
+            },
             hourlyAvailable: {
               temperature2m: false,
               relativeHumidity2m: false,
@@ -229,6 +271,8 @@ export async function POST(request: Request) {
           latitude: location.lat,
           longitude: location.lon,
           timezone: weatherData.timezone,
+          durationHours: weatherData.durationHours,
+          realtime: weatherData.realtime,
           hourlyAvailable: weatherData.hourlyAvailable,
           sample: weatherData.sample,
           note:

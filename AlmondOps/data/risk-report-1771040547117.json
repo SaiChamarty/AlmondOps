@@ -1,0 +1,83 @@
+{
+  "input": {
+    "locationPreset": "Davis",
+    "stage": "Bloom",
+    "hazardFocus": {
+      "frost": true,
+      "heat": true,
+      "insects": true
+    }
+  },
+  "location": {
+    "label": "Davis, CA",
+    "lat": 38.5449,
+    "lon": -121.7405,
+    "source": "preset",
+    "status": "WORKING",
+    "detail": "Preset location resolved to fixed coordinates."
+  },
+  "provider": "open-meteo",
+  "dataReport": {
+    "meta": {
+      "generatedAtLocal": "2026-02-13 19:42",
+      "locationLabel": "Davis, CA",
+      "stage": "Bloom",
+      "horizonHours": 72
+    },
+    "backend": {
+      "inputValidation": {
+        "status": "WORKING",
+        "detail": "Request payload passed schema validation."
+      },
+      "locationResolution": {
+        "status": "WORKING",
+        "detail": "Preset location resolved to fixed coordinates."
+      },
+      "providerFetch": {
+        "status": "WORKING",
+        "detail": "Provider data fetched successfully.",
+        "provider": "open-meteo",
+        "httpStatus": 200
+      },
+      "dataPersistence": {
+        "status": "WORKING",
+        "detail": "Data report prepared and ready to persist."
+      },
+      "riskAnalysis": {
+        "status": "SKIPPED",
+        "detail": "Risk analysis intentionally not run; provider data only."
+      }
+    },
+    "providerData": {
+      "weather": {
+        "provider": "open-meteo",
+        "fetchedAt": "2026-02-14T03:42:26.387Z",
+        "latitude": 38.5449,
+        "longitude": -121.7405,
+        "timezone": "America/Los_Angeles",
+        "durationHours": 72,
+        "realtime": {
+          "timestamp": "2026-02-13T19:30",
+          "windMph": 7.6,
+          "humidityPct": 81,
+          "precipitationMm": 0
+        },
+        "hourlyAvailable": {
+          "temperature2m": true,
+          "relativeHumidity2m": true,
+          "precipitation": true,
+          "windSpeed10m": true
+        },
+        "sample": {
+          "minTempC": 4.7,
+          "maxTempC": 18.4,
+          "maxWindKph": 16,
+          "maxHumidityPct": 100,
+          "precipTotalMm": 22.099999999999998
+        },
+        "note": null
+      }
+    }
+  },
+  "createdAt": "2026-02-14T03:42:27.116Z"
+}
